@@ -4,6 +4,7 @@ Example of how to import and use the brewblox service
 
 from typing import Union
 
+import aiohttp
 from aiohttp import web
 from brewblox_service import brewblox_logger, events, scheduler, service
 
@@ -11,8 +12,8 @@ routes = web.RouteTableDef()
 LOGGER = brewblox_logger(__name__)
 
 
-@routes.post('/example/endpoint')
-async def example_endpoint_handler(request: web.Request) -> web.Response:
+@routes.get('/volume')
+async def read_volume_handler(request: web.Request) -> web.Response:
     """
     Example endpoint handler. Using `routes.post` means it will only respond to POST requests.
 
@@ -29,7 +30,7 @@ async def example_endpoint_handler(request: web.Request) -> web.Response:
     description: An example of how to use aiohttp features.
     operationId: example.endpoint
     produces:
-    - text/plain
+    - application/json
     parameters:
     -
         in: body
@@ -39,8 +40,11 @@ async def example_endpoint_handler(request: web.Request) -> web.Response:
         schema:
             type: string
     """
-    input = await request.text()
-    return web.Response(body=f'Hello world! (You said: "{input}")')
+    async with aiohttp.ClientSession() as session:
+        async with session.get("http://192.168.0.65/status") as response:
+            json = await response.text()
+
+    return web.Response(body=json, content_type="application/json")
 
 
 async def on_message(subscription: events.EventSubscription, key: str, message: Union[dict, str]):
@@ -121,9 +125,9 @@ def add_events(app: web.Application):
 
 
 def main():
-    app = service.create_app(default_name='YOUR_PACKAGE')
+    app = service.create_app(default_name='volume_sensor')
 
-    add_events(app)
+    # add_events(app)
 
     # Register routes in this file (/example/endpoint in our case)
     app.router.add_routes(routes)
