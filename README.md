@@ -102,7 +102,16 @@ For a basic implementation, you do not need to change anything in this file.
 ### [test/test_hello.py](./test/test_hello.py)
 An example on how to test aiohttp endpoints you added. Feel free to remove this once you no longer need it.
 
+---
+###[docker-compose.yml]
+Initialize the docker container.
 
+The volume sensor code(./volume_sensor/__main__.py) required an environment variable in the docker-compose called IP_ADDR. You can add it with these lines:
+```yaml
+web:
+	environment:
+		-IP_ADDR:"http://.../status"
+```
 ---
 ### [docker/amd/Dockerfile](./docker/amd/Dockerfile)
 A docker file for running your package. To build, you need to copy the local version of your python package to `docker/dist/` first.

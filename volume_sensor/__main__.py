@@ -4,6 +4,7 @@ Example of how to import and use the brewblox service
 
 from typing import Union
 
+import os
 import aiohttp
 from aiohttp import web
 from brewblox_service import brewblox_logger, events, scheduler, service
@@ -41,7 +42,7 @@ async def read_volume_handler(request: web.Request) -> web.Response:
             type: string
     """
     async with aiohttp.ClientSession() as session:
-        async with session.get("http://192.168.0.65/status") as response:
+        async with session.get(os.environ['IP_ADDR']) as response: #needs an env variable called IP_ADDR containing the adress of the machine sending the data
             json = await response.text()
 
     return web.Response(body=json, content_type="application/json")
