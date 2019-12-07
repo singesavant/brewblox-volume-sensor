@@ -1,0 +1,4 @@
+brewblox-service~=0.19
+
+[dev]
+pipenv

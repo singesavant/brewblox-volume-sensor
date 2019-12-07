@@ -1,0 +1,11 @@
+MANIFEST.in
+README.md
+setup.py
+brewblox_volume_sensor.egg-info/PKG-INFO
+brewblox_volume_sensor.egg-info/SOURCES.txt
+brewblox_volume_sensor.egg-info/dependency_links.txt
+brewblox_volume_sensor.egg-info/requires.txt
+brewblox_volume_sensor.egg-info/top_level.txt
+test/test_pressure_sensor.py
+volume_sensor/__init__.py
+volume_sensor/__main__.py
