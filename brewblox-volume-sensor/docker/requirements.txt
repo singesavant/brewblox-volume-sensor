@@ -1,0 +1,16 @@
+-i https://pypi.python.org/simple
+aioamqp==0.12.0
+aiohttp-swagger==1.0.5
+aiohttp==3.4.4
+async-timeout==3.0.1
+attrs==18.2.0
+brewblox-service==0.14.0
+cchardet==2.1.4
+chardet==3.0.4
+idna==2.8
+jinja2==2.10
+markupsafe==1.1.0
+multidict==4.5.2
+pprint==0.1
+pyyaml==3.13
+yarl==1.3.0
